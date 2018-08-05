@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".SampleActivity">
+        <activity android:name=".sample_rating.RatingSampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".sample_rating.RatingSampleActivity">
+        <activity android:name=".SampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

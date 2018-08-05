@@ -21,7 +21,7 @@ public class RatingSampleActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         RatingListAdapter adapter = new RatingListAdapter(this);
         recyclerView.setAdapter(adapter);
-        adapter.setRatings(generateRatings());
+        //adapter.setRatings(generateRatings());
     }
 
 

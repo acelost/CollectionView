@@ -7,9 +7,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import ru.acelost.collectionadapter.adapter.ViewHolder;
+import ru.acelost.collectionadapter.adapter.CollectionView;
 
-public class ListItemHolder extends ViewHolder {
+public class ListItemHolder extends CollectionView.ViewHolder {
 
     private final TextView mTextView;
 

@@ -12,10 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 import ru.acelost.collectionadapter.R;
 import ru.acelost.collectionadapter.adapter.CollectionView;
-import ru.acelost.collectionadapter.adapter.CollectionViewAdapter;
-import ru.acelost.collectionadapter.adapter.ViewHolder;
+import ru.acelost.collectionadapter.measurement.Measurement;
 
 public class RatingView extends LinearLayout implements CollectionView {
 
@@ -54,9 +55,13 @@ public class RatingView extends LinearLayout implements CollectionView {
     public void addChildInLayout(@NonNull View view, int position) {
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp == null) {
-            lp = new ViewGroup.LayoutParams(20, 20);
+            lp = new ViewGroup.LayoutParams(50, 50);
         }
         addViewInLayout(view, position, lp, true);
+    }
+
+    public void setRecycledViewPool(@NotNull RecycledViewPool pool) {
+        mAdapter.setRecycledViewPool(pool);
     }
 
     private class FullHolder extends ViewHolder {
@@ -78,7 +83,7 @@ public class RatingView extends LinearLayout implements CollectionView {
         }
     }
 
-    private class Adapter extends CollectionViewAdapter<ViewHolder> {
+    private class Adapter extends CollectionView.Adapter<ViewHolder> {
 
         private static final int VIEW_TYPE_FULL = 0;
         private static final int VIEW_TYPE_HALF = 1;
@@ -88,7 +93,7 @@ public class RatingView extends LinearLayout implements CollectionView {
 
         public void setRating(int rating) {
             mRating = rating;
-            notifyDataSetChanged();
+            notifyDataChanged();
         }
 
         @Override
@@ -111,6 +116,8 @@ public class RatingView extends LinearLayout implements CollectionView {
         @NonNull
         @Override
         protected ViewHolder onCreateViewHolder(@NonNull CollectionView parent, int viewType) {
+            Measurement.getInstance().increment("Create Holder");
+            Measurement.getInstance().printCounters();
             ImageView view = new AppCompatImageView(getContext());
             switch (viewType) {
                 case VIEW_TYPE_FULL:

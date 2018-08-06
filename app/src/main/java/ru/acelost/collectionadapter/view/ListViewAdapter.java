@@ -43,4 +43,8 @@ public class ListViewAdapter extends AbstractListViewAdapter<String, ListItemHol
         return 1;
     }
 
+    @Override
+    protected int getStashSize() {
+        return 0;
+    }
 }

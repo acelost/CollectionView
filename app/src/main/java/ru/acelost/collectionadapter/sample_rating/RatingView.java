@@ -116,8 +116,6 @@ public class RatingView extends LinearLayout implements CollectionView {
         @NonNull
         @Override
         protected ViewHolder onCreateViewHolder(@NonNull CollectionView parent, int viewType) {
-            Measurement.getInstance().increment("Create Holder");
-            Measurement.getInstance().printCounters();
             ImageView view = new AppCompatImageView(getContext());
             switch (viewType) {
                 case VIEW_TYPE_FULL:

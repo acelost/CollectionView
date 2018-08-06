@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ru.acelost.collectionadapter.BuildConfig;
+import ru.acelost.collectionadapter.measurement.Measurement;
 
 /**
  * Интерфейс вью, представляющего коллекцию элементов. Используется для вью, предполагающих отображение
@@ -79,8 +80,8 @@ public interface CollectionView {
      * Адаптер для дочерних вью внутри {@link CollectionView}. Отвечает за создание
      * дочерних вью, их жизненный цикл, привязку данных и переиспользование. Адаптер
      * управляет не обязательно всеми дочерними вью. Если реализация {@link CollectionView}
-     * предполагает одиночных элементов(например, заголовок в начале или счетчик в конце),
-     * диапазон дочерних вью, которыми управляет адаптер может быть задан при помощи методов
+     * предполагает наличие одиночных элементов (например, заголовок в начале или счетчик в конце),
+     * диапазон дочерних вью, которыми управляет адаптер, может быть задан при помощи методов
      * {@link #getChildStartOffset()} и {@link #getChildEndOffset()}.
      * Каркас логики работы адаптера заимствован из {@link android.support.v7.widget.RecyclerView}.
      *
@@ -95,7 +96,7 @@ public interface CollectionView {
 
         /**
          * Коллекция вью-холдеров для дочерних вью, которые сейчас находятся в родительском вью.
-         * Ключ - позиция вью среди дочерних элементов коллекции (НЕ позиции внутри {@link CollectionView}).
+         * Ключ - позиция вью среди дочерних элементов коллекции (НЕ позиция внутри {@link CollectionView}).
          */
         private final SparseArray<VH> mViewHolders = new SparseArray<>();
 
@@ -199,6 +200,7 @@ public interface CollectionView {
                 }
             }
             // Удаляем все вью из родительского вью
+            mViewHolders.clear();
             mView.removeViewsInLayout(getChildStartOffset(), mView.getChildCount() - getChildEndOffset());
             mView = null;
         }
@@ -229,8 +231,8 @@ public interface CollectionView {
             }
             // Отправляем не поместившиеся в стеш вью-холдеры на переиспользование
             final int start = count + stashSize;
-            final int end = view.getChildCount() - getChildEndOffset();
-            if (start < end - 1) {
+            final int end = view.getChildCount() - getChildEndOffset() - childOffset;
+            if (start < end) {
                 for (int i = start; i < end; ++i) {
                     final VH holder = getViewHolder(i);
                     if (holder != null) {
@@ -238,7 +240,7 @@ public interface CollectionView {
                         mViewHolders.delete(i);
                     }
                 }
-                view.removeViewsInLayout(start + getChildStartOffset(), end - start + getChildStartOffset());
+                view.removeViewsInLayout(start + getChildStartOffset(), end - start);
             }
             // Привязываем коллекцию данных к вью-холдерам
             for (int i = 0; i < count; ++i) {
@@ -315,12 +317,17 @@ public interface CollectionView {
         private VH createViewHolder(@NonNull CollectionView parent, int viewType) {
             ViewHolder recycled = getRecycledViewPool().getRecycledView(viewType);
             if (recycled != null) {
+                Measurement.getInstance().increment("From pool");
+                Measurement.getInstance().printCounters();
                 if (Environment.LOGGING_ENABLED) {
                     Environment.log("View holder of type " + viewType + " taken from pool " + getRecycledViewPool() + ".");
                 }
                 //noinspection unchecked
                 return (VH) recycled;
             }
+            Log.e("MEASUREMENT", "create holder for type " + viewType);
+            Measurement.getInstance().increment("Create new");
+            Measurement.getInstance().printCounters();
             if (Environment.LOGGING_ENABLED) {
                 Environment.log("View holder of type " + viewType + " created by adapter.");
             }

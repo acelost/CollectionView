@@ -125,7 +125,7 @@ public class RatingView extends LinearLayout implements CollectionView {
                 case VIEW_TYPE_EMPTY:
                     return new EmptyHolder(view);
             }
-            throw new IllegalArgumentException("Unknown view type " + viewType + ".");
+            throw new IllegalArgumentException("Unknown root type " + viewType + ".");
         }
 
         @Override

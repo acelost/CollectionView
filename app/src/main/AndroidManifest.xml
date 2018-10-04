@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".sample_rating.RatingSampleActivity">
+        <activity android:name=".benchmark_split_screen.SplitScreenBenchmarkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,13 +18,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SampleActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".sample_rating.RatingSampleActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".SampleActivity"/>
 
     </application>
 

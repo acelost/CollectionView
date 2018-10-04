@@ -435,7 +435,7 @@ public interface CollectionView {
          * Получить пул для переиспользованных вью-холдеров.
          */
         @NonNull
-        private RecycledViewPool getRecycledViewPool() {
+        public RecycledViewPool getRecycledViewPool() {
             if (mRecycledPool == null) {
                 mRecycledPool = new RecycledViewPool();
             }

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ru.acelost.collectionadapter.BuildConfig;
-import ru.acelost.collectionadapter.measurement.Measurement;
 
 /**
  * Интерфейс вью, представляющего коллекцию элементов. Используется для вью, предполагающих отображение
@@ -23,6 +22,9 @@ import ru.acelost.collectionadapter.measurement.Measurement;
  */
 public interface CollectionView {
 
+    /**
+     * Окружение, в котором работает {@link CollectionView} и его дружественные классы.
+     */
     class Environment {
         public static boolean LOGGING_ENABLED = false;
         public static boolean DEBUG = BuildConfig.DEBUG;
@@ -30,6 +32,11 @@ public interface CollectionView {
             Log.i("CollectionViewLog", message.toString());
         }
     }
+
+    /**
+     * Значение, сигнализирующее о неуказанной позиции вью-холдера.
+     */
+    int NO_POSITION = -1;
 
     /**
      * Добавить дочернюю вью в родительскую на указанную позицию. Предполагаемая реализация - вызов
@@ -317,17 +324,12 @@ public interface CollectionView {
         private VH createViewHolder(@NonNull CollectionView parent, int viewType) {
             ViewHolder recycled = getRecycledViewPool().getRecycledView(viewType);
             if (recycled != null) {
-                Measurement.getInstance().increment("From pool");
-                Measurement.getInstance().printCounters();
                 if (Environment.LOGGING_ENABLED) {
                     Environment.log("View holder of type " + viewType + " taken from pool " + getRecycledViewPool() + ".");
                 }
                 //noinspection unchecked
                 return (VH) recycled;
             }
-            Log.e("MEASUREMENT", "create holder for type " + viewType);
-            Measurement.getInstance().increment("Create new");
-            Measurement.getInstance().printCounters();
             if (Environment.LOGGING_ENABLED) {
                 Environment.log("View holder of type " + viewType + " created by adapter.");
             }
@@ -354,6 +356,7 @@ public interface CollectionView {
          */
         private void bindViewHolder(@NonNull VH holder, int position) {
             onBindViewHolder(holder, position);
+            holder.setAdapterPosition(position);
         }
 
         /**
@@ -394,6 +397,7 @@ public interface CollectionView {
         private void recycleViewHolder(@NonNull VH holder) {
             onRecycleViewHolder(holder);
             holder.onRecycle();
+            holder.setAdapterPosition(NO_POSITION);
             getRecycledViewPool().putRecycledView(holder);
         }
 
@@ -474,6 +478,11 @@ public interface CollectionView {
          */
         private int beforeStashVisibility;
 
+        /**
+         * Позиция вью-холдера в адаптере.
+         */
+        private int adapterPosition = NO_POSITION;
+
         public ViewHolder(View view) {
             if (view == null) {
                 throw new IllegalArgumentException("View may not be null.");
@@ -493,6 +502,21 @@ public interface CollectionView {
          */
         void setViewType(int viewType) {
             this.viewType = viewType;
+        }
+
+        /**
+         * Получить позицию вью-холдера в адаптере.
+         */
+        public final int getAdapterPosition() {
+            return adapterPosition;
+        }
+
+        /**
+         * Задать позицию вью-холдера в адаптере.
+         * @param position - позиция
+         */
+        void setAdapterPosition(int position) {
+            this.adapterPosition = position;
         }
 
         /**

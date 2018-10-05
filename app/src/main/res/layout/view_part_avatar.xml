@@ -7,12 +7,12 @@
 
     <TextView
         android:id="@+id/avatar"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="11dp"
+        android:textSize="10dp"
         android:textStyle="bold"
         tools:background="@drawable/shape_circle_gray"
         tools:text="A"/>

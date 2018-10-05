@@ -40,7 +40,7 @@ data class Rank(
         fun random(seed: Long): Rank {
             return Rank(
                     Person.random(seed),
-                    Random(seed).nextInt(10)
+                    Random(seed).nextInt(20)
             )
         }
     }

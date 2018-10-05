@@ -9,7 +9,7 @@ import ru.acelost.collectionadapter.benchmark.binding.StartViewBinding
 import ru.acelost.collectionadapter.benchmark.binding.ViewBinding
 import java.lang.IllegalStateException
 
-private const val STARS = 5
+private const val STARS = 10
 
 class RankViewAdapter {
 

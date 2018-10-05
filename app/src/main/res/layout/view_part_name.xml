@@ -5,5 +5,5 @@
     android:layout_height="@dimen/item_height"
     android:padding="1dp"
     android:gravity="center_vertical"
-    android:textSize="11dp"
+    android:textSize="9dp"
     tools:text="Barrie" />

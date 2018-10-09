@@ -30,6 +30,7 @@ data class Person(
             )
         }
     }
+    fun firstLetter() = firstName.substring(0, 1)
 }
 
 data class Rank(

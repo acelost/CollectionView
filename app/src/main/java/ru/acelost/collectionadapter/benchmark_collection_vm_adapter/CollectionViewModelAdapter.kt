@@ -1,34 +1,17 @@
-package ru.acelost.collectionadapter
+package ru.acelost.collectionadapter.benchmark_collection_vm_adapter
 
-import android.annotation.SuppressLint
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.annotation.LayoutRes
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import ru.acelost.collectionadapter.BR
 import ru.acelost.collectionadapter.adapter.CollectionView
+import java.lang.IllegalStateException
 import java.util.*
-import kotlin.collections.LinkedHashMap
 
-@SuppressLint("all")
-open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>() {
-
-    interface ListUpdateCallback {
-
-        fun onItemsInsertedOnTop(insertPosition: Int, itemCount: Int)
-
-    }
-
-    var pool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool? = null
-    var collectionPool: CollectionView.RecycledViewPool? = null
-
-    private val areEqualItems: (Any, Any) -> Boolean = Any::equals
-
-    private var mCallback: ListUpdateCallback? = null
+open class CollectionViewModelAdapter : CollectionView.Adapter<CollectionViewHolder>() {
 
     protected val items = LinkedList<Any>()
 
@@ -37,7 +20,7 @@ open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<V
     // Public functions:
     @JvmOverloads
     open fun reload(newItems: List<Any>, refreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null) {
-        val diffCallback = DiffCallBack(
+        /*val diffCallback = DiffCallBack(
                 items,
                 newItems,
                 checkAreItemsTheSame = { oldItem: Any, newItem: Any ->
@@ -46,10 +29,10 @@ open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<V
                 checkAreContentsTheSame = { oldItem: Any, newItem: Any ->
                     getCellInfo(oldItem).checkAreContentsTheSame.invoke(oldItem, newItem)
                 })
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)*/
         items.clear()
         items.addAll(newItems)
-        diffResult.dispatchUpdatesTo(object : androidx.recyclerview.widget.ListUpdateCallback {
+        /*diffResult.dispatchUpdatesTo(object : androidx.recyclerview.widget.ListUpdateCallback {
             override fun onInserted(position: Int, count: Int) {
                 notifyItemRangeInserted(position, count)
                 mCallback?.onItemsInsertedOnTop(position, count)
@@ -66,14 +49,10 @@ open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<V
             override fun onChanged(position: Int, count: Int, payload: Any?) {
                 notifyItemRangeChanged(position, count, payload)
             }
-        })
+        })*/
+        notifyDataChanged()
         refreshLayout?.isRefreshing = false
     }
-
-    fun setListUpdateCallback(callback: ListUpdateCallback?) {
-        mCallback = callback
-    }
-
 
     @JvmOverloads
     inline fun <reified T : Any> cell(@LayoutRes layoutId: Int,
@@ -112,12 +91,6 @@ open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<V
         val viewModel = getViewModel(position)
         if (cellInfo.bindingId != 0 ) {
             binding.setVariable(cellInfo.bindingId, viewModel)
-            pool?.apply {
-                binding.setVariable(BR.pool, pool)
-            }
-            collectionPool?.apply {
-                binding.setVariable(BR.collectionPool, collectionPool)
-            }
             binding.executePendingBindings()
         }
     }
@@ -129,14 +102,17 @@ open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<V
         return getCellInfo(getViewModel(position)).layoutId
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(viewType, parent, false)
+    override fun onCreateViewHolder(parent: CollectionView, viewType: Int): CollectionViewHolder {
+        if (parent is ViewGroup) {
+            val inflater = LayoutInflater.from(parent.context)
+            val view = inflater.inflate(viewType, parent, false)
 
-        return ViewHolder(view.rootView)
+            return CollectionViewHolder(view.rootView)
+        }
+        throw IllegalStateException()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CollectionViewHolder, position: Int) {
         val cellInfo = getCellInfo(getViewModel(position))
         onBind(holder.binding, cellInfo, position)
     }
@@ -145,6 +121,11 @@ open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<V
     fun getViewModelType(itemPosition: Int): Class<out Any> {
         return items[itemPosition]::class.java
     }
+
+    override fun getStashSize(): Int {
+        return 15
+    }
+
 }
 
 data class CellInfo(val layoutId: Int,
@@ -152,7 +133,7 @@ data class CellInfo(val layoutId: Int,
                     val checkAreItemsTheSame: (Any, Any) -> Boolean,
                     val checkAreContentsTheSame: (Any, Any) -> Boolean)
 
-open class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+open class CollectionViewHolder(view: View) : CollectionView.ViewHolder(view) {
 
     val binding: ViewDataBinding = DataBindingUtil.bind(view)!!
 

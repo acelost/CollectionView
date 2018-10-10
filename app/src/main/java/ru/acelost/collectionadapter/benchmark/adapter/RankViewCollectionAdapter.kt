@@ -30,4 +30,8 @@ class RankViewCollectionAdapter(private val parent: ViewGroup) : CollectionView.
         origin.onBindView(holder.binding, position)
     }
 
+    override fun getStashSize(): Int {
+        return 0
+    }
+
 }

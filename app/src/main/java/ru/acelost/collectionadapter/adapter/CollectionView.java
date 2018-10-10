@@ -560,7 +560,7 @@ public interface CollectionView {
          * Максимальное количество вью-холдеров одного типа, которые
          * могут храниться в пуле по умолчанию.
          */
-        private static final int DEFAULT_MAX_SCRAP = 5;
+        private static final int DEFAULT_MAX_SCRAP = Integer.MAX_VALUE;
 
         /**
          * Данные о хранящихся в пуле вью-холдеров конкретного типа.

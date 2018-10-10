@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="RecyclerView"
+        android:text="CollectionView"
         android:textSize="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView

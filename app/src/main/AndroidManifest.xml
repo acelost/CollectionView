@@ -24,6 +24,7 @@
         <activity android:name=".benchmark_collection_view.CollectionViewBenchmarkActivity" />
         <activity android:name=".benchmark_split_screen.SplitScreenBenchmarkActivity" />
         <activity android:name=".benchmark_vm_adapter.VmAdapterActivity" />
+        <activity android:name=".benchmark_collection_vm_adapter.CollectionVmAdapterBenchmarkActivity" />
 
     </application>
 

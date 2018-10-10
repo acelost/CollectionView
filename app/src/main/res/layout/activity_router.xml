@@ -22,8 +22,13 @@
         android:id="@+id/button_benchmark_vm_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="vm adapter Benchmark"/>
+        android:text="recycler vm adapter Benchmark"/>
 
+    <Button
+        android:id="@+id/button_benchmark_collection_vm_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="collection vm adapter benchmark"/>
 
     <Button
         android:id="@+id/button_benchmark_recycler_vs_collection"

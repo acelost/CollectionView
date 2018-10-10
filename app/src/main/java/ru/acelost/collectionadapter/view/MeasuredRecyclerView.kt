@@ -1,15 +1,15 @@
 package ru.acelost.collectionadapter.view
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import androidx.recyclerview.widget.RecyclerView
 import ru.acelost.collectionadapter.R
 import ru.acelost.collectionadapter.ViewModelAdapter
 import ru.acelost.collectionadapter.measurement.Measurement
 import java.lang.reflect.Constructor
 import java.lang.reflect.InvocationTargetException
 
-class MeasuredRecyclerView : RecyclerView {
+class MeasuredRecyclerView : androidx.recyclerview.widget.RecyclerView {
 
     constructor(context: Context): super(context)
 
@@ -92,7 +92,7 @@ class MeasuredRecyclerView : RecyclerView {
         }
         return if (className.contains(".")) {
             className
-        } else RecyclerView::class.java.getPackage().name + '.'.toString() + className
+        } else androidx.recyclerview.widget.RecyclerView::class.java.getPackage().name + '.'.toString() + className
     }
 
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {

@@ -1,6 +1,6 @@
 package ru.acelost.collectionadapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 class DiffCallBack(private val oldList: List<Any>,
                    private val newList: List<Any>,

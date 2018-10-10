@@ -1,6 +1,6 @@
 package ru.acelost.collectionadapter.benchmark
 
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import ru.acelost.collectionadapter.R
 import java.util.*
 

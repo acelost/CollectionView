@@ -1,15 +1,15 @@
 package ru.acelost.collectionadapter.benchmark
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
-import android.support.v4.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.fragment.app.FragmentActivity
 import android.view.Choreographer
 
 private const val SECOND = 1_000_000_000 // in nanos
 
 class FPSMeter(
-        activity: FragmentActivity,
+        activity: androidx.fragment.app.FragmentActivity,
         private val foregroundOnly: Boolean = true,
         private val action: (frameStartNanos: Long, fps: Long) -> Unit
 ) : LifecycleObserver {

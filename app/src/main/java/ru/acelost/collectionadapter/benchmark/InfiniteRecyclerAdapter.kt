@@ -1,7 +1,7 @@
 package ru.acelost.collectionadapter.benchmark
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import java.lang.IllegalArgumentException
 private const val VIEW_TYPE_RECYCLER = 1
 private const val VIEW_TYPE_COLLECTION = 2
 
-class InfiniteRecyclerAdapter(private val childType: ViewType) : RecyclerView.Adapter<BaseViewHolder>() {
+class InfiniteRecyclerAdapter(private val childType: ViewType) : androidx.recyclerview.widget.RecyclerView.Adapter<BaseViewHolder>() {
 
     enum class ViewType {
         RECYCLER_VIEW,
@@ -59,7 +59,7 @@ class InfiniteRecyclerAdapter(private val childType: ViewType) : RecyclerView.Ad
 
 }
 
-abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class BaseViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     abstract fun setModel(rank: Rank)
 
@@ -67,11 +67,11 @@ abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 
 class RecyclerViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
-    private val recycler = itemView.findViewById<RecyclerView>(R.id.recycler_view)
+    private val recycler = itemView.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler_view)
     private val adapter = RankViewRecyclerAdapter()
 
     init {
-        recycler.layoutManager = object : LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false) {
+        recycler.layoutManager = object : androidx.recyclerview.widget.LinearLayoutManager(itemView.context, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false) {
             override fun canScrollHorizontally() = false
         }
         recycler.adapter = adapter

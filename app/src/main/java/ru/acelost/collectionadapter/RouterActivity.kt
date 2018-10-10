@@ -2,7 +2,7 @@ package ru.acelost.collectionadapter
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import ru.acelost.collectionadapter.benchmark_collection_view.CollectionViewBenchmarkActivity
 import ru.acelost.collectionadapter.benchmark_recycler_view.RecyclerViewBenchmarkActivity

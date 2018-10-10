@@ -10,7 +10,7 @@
 
         <variable
             name="pool"
-            type="android.support.v7.widget.RecyclerView.RecycledViewPool"/>
+            type="androidx.recyclerview.widget.RecyclerView.RecycledViewPool"/>
     </data>
 
 
@@ -22,5 +22,5 @@
         android:orientation="horizontal"
         app:adapter="ru.acelost.collectionadapter.benchmark_vm_adapter.CustomAdapter"
         app:pool="@{pool}"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 </layout>

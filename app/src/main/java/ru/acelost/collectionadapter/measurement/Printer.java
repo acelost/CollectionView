@@ -1,6 +1,6 @@
 package ru.acelost.collectionadapter.measurement;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public interface Printer {
     void print(@Nullable String text);

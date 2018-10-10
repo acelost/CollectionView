@@ -34,13 +34,13 @@
         android:layout_height="match_parent"
         android:layout_below="@id/header">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_1"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_2"
             android:layout_weight="1"
             android:layout_width="0dp"

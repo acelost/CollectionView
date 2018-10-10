@@ -1,12 +1,12 @@
 package ru.acelost.collectionadapter
 
 import android.annotation.SuppressLint
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import java.util.*
 import kotlin.collections.LinkedHashMap
 
 @SuppressLint("all")
-open class ViewModelAdapter: RecyclerView.Adapter<ViewHolder>() {
+open class ViewModelAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>() {
 
     interface ListUpdateCallback {
 
@@ -22,7 +22,7 @@ open class ViewModelAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     }
 
-    var pool: RecyclerView.RecycledViewPool? = null
+    var pool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool? = null
 
     private val areEqualItems: (Any, Any) -> Boolean = Any::equals
 
@@ -34,7 +34,7 @@ open class ViewModelAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     // Public functions:
     @JvmOverloads
-    open fun reload(newItems: List<Any>, refreshLayout: SwipeRefreshLayout? = null) {
+    open fun reload(newItems: List<Any>, refreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null) {
         val diffCallback = DiffCallBack(
                 items,
                 newItems,
@@ -47,7 +47,7 @@ open class ViewModelAdapter: RecyclerView.Adapter<ViewHolder>() {
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         items.clear()
         items.addAll(newItems)
-        diffResult.dispatchUpdatesTo(object : android.support.v7.util.ListUpdateCallback {
+        diffResult.dispatchUpdatesTo(object : androidx.recyclerview.widget.ListUpdateCallback {
             override fun onInserted(position: Int, count: Int) {
                 notifyItemRangeInserted(position, count)
                 mCallback?.onItemsInsertedOnTop(position, count)
@@ -147,7 +147,7 @@ data class CellInfo(val layoutId: Int,
                     val checkAreItemsTheSame: (Any, Any) -> Boolean,
                     val checkAreContentsTheSame: (Any, Any) -> Boolean)
 
-class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
     val binding: ViewDataBinding = DataBindingUtil.bind(view)!!
 

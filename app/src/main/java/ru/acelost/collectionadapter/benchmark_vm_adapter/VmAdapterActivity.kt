@@ -1,10 +1,9 @@
 package ru.acelost.collectionadapter.benchmark_vm_adapter
 
-import android.databinding.BindingAdapter
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import ru.acelost.collectionadapter.R
 import ru.acelost.collectionadapter.ViewModelAdapter
 import ru.acelost.collectionadapter.benchmark.BenchmarkActivity
@@ -17,7 +16,7 @@ class VmAdapterActivity : BenchmarkActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_benchmark_recycler_view_vm)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recycler_view)
         recyclerView.adapter = object : ViewModelAdapter() {
             init {
                 cell<List<Any>>(R.layout.item_with_recycler_view_vm)
@@ -49,7 +48,7 @@ class VmAdapterActivity : BenchmarkActivity() {
 }
 
 @BindingAdapter("list")
-fun setContent(view: RecyclerView, content: List<Any>) {
+fun setContent(view: androidx.recyclerview.widget.RecyclerView, content: List<Any>) {
     val adapter = view.adapter as? ViewModelAdapter
     adapter?.reload(content)
 }
@@ -65,7 +64,7 @@ fun setImageResource(view: ImageView, content: Int) {
 }
 
 @BindingAdapter("pool")
-fun setImageResource(view: RecyclerView, pool: RecyclerView.RecycledViewPool) {
+fun setImageResource(view: androidx.recyclerview.widget.RecyclerView, pool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool) {
     if (view.recycledViewPool == pool) {
         return
     }

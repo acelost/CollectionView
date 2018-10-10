@@ -1,14 +1,14 @@
 package ru.acelost.collectionadapter.benchmark.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import ru.acelost.collectionadapter.benchmark.Rank
 import ru.acelost.collectionadapter.benchmark.binding.ViewBinding
 
-class RankViewRecyclerAdapter : RecyclerView.Adapter<RankViewRecyclerAdapter.ViewHolder>() {
+class RankViewRecyclerAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<RankViewRecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: ViewBinding<View>) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ViewBinding<View>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 
     private val origin = RankViewAdapter()
 

@@ -1,9 +1,5 @@
 package ru.acelost.collectionadapter.adapter;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -11,6 +7,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import ru.acelost.collectionadapter.BuildConfig;
 
 /**
@@ -90,7 +91,7 @@ public interface CollectionView {
      * предполагает наличие одиночных элементов (например, заголовок в начале или счетчик в конце),
      * диапазон дочерних вью, которыми управляет адаптер, может быть задан при помощи методов
      * {@link #getChildStartOffset()} и {@link #getChildEndOffset()}.
-     * Каркас логики работы адаптера заимствован из {@link android.support.v7.widget.RecyclerView}.
+     * Каркас логики работы адаптера заимствован из {@link RecyclerView}.
      *
      * @param <VH> - тип вью-холдера для дочерних вью
      */

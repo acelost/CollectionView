@@ -14,13 +14,11 @@
     </data>
 
 
-    <ru.acelost.collectionadapter.view.MeasuredRecyclerView
+    <ru.acelost.collectionadapter.view.InnerRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        app:list="@{viewModel}"
         android:orientation="horizontal"
-        app:adapter="ru.acelost.collectionadapter.benchmark_vm_adapter.CustomAdapter"
-        app:pool="@{pool}"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:list="@{viewModel}"
+        app:pool="@{pool}"/>
 </layout>
